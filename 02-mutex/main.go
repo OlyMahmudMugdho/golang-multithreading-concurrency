@@ -5,6 +5,12 @@ import (
 	"sync"
 )
 
+func increment(value *int, mu *sync.Mutex) {
+	mu.Lock()
+	*value = *value + 1
+	defer mu.Unlock()
+}
+
 func main() {
 
 	var mu sync.Mutex
@@ -22,6 +28,8 @@ func main() {
 
 	wg.Wait()
 
+	fmt.Println(counter)
+
 	/*
 		this process will not work perfectly
 		var wg sync.WaitGroup
@@ -34,9 +42,9 @@ func main() {
 
 		this process will not work perfectly
 		 wg.Wait()
+		 fmt.Println(counter)
 	*/
 
-	fmt.Println(counter)
 }
 
 /*
@@ -46,9 +54,3 @@ func increment(value *int, wg *sync.WaitGroup) {
 		// *value = *value + 1
 	}
 */
-
-func increment(value *int, mu *sync.Mutex) {
-	mu.Lock()
-	*value = *value + 1
-	defer mu.Unlock()
-}
