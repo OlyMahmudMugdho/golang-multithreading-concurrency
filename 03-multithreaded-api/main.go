@@ -17,9 +17,9 @@ func main() {
 
 func HelloApi(w http.ResponseWriter, r *http.Request) {
 	var wg sync.WaitGroup
-	w.Header().Add("Content-Type", "application/json")
 	wg.Add(1)
 	go func() {
+		w.Header().Add("Content-Type", "application/json")
 		defer wg.Done()
 		json.NewEncoder(w).Encode("hello world")
 	}()
