@@ -7,14 +7,14 @@ import (
 
 func main() {
 	message := make(chan string)
-	go func() {
-		for i := 0; i < 5; i++ {
+	for i := 0; i < 5; i++ {
+		go func() {
 			time.Sleep(time.Second)
 			if i == 3 {
 				message <- "three"
 			}
-		}
-	}()
+		}()
+	}
 
 	msg := <-message
 	fmt.Println(msg)
